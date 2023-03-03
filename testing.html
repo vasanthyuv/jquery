@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #evol1,
+        #evol2,
+        #evol3,
+        #evol4,
+        #evol5,
+        #evol6 {
+            margin-top: 300px;
+            display: none;
+
+        }
+
+        .evol01 {
+            margin-left: 20px;
+            margin-top: 200px;
+
+        }
+
+        .evol02 {
+            margin-left: 100px;
+            margin-top: 180px;
+
+        }
+
+        .evol03 {
+            margin-left: 240px;
+            margin-top: 160px;
+        }
+
+        .evol04 {
+            margin-left: 320px;
+            margin-top: 140px;
+        }
+
+        .evol05 {
+            margin-left: 410px;
+            margin-top: 110px;
+        }
+
+        .evol06 {
+            margin-left: 530px;
+            margin-top: 90px;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#but1").click(function () {
+                var img = $("#evol1");
+                img.animate({ height: '100px' }, 2000),
+                    function () {
+                        var img = $("#evol2");
+                        img.animate({ height: '200px' }, 2000),
+
+                            function () {
+                                var img = $("#evol3");
+                                img.animate({ height: '300px' }, 2000),
+
+                                    function () {
+                                        var img = $("#evol4");
+                                        img.animate({ height: '350px' }, 2000),
+
+                                            function () {
+                                                var img = $("#evol5");
+                                                img.animate({ height: '400px' }, 2000),
+
+                                                    function () {
+                                                        var img = $("#evol6");
+                                                        img.animate({ height: '450px' }, 2000);
+
+
+                                                    };
+                                                };
+                                    };
+                            };
+                    };
+            });
+        });
+
+        _
+
+
+
+
+
+    </script>
+
+</head>
+
+<body>
+
+    <button id="but1">start</button>
+    <div class="evol01">
+        <img src="asset/evol01.png" id="evol1">
+    </div>
+    <div class="evol02">
+        <img src="asset/evol02.png" id="evol2">
+    </div>
+    <div class="evol03">
+        <img src="asset/evol03.png" id="evol3">
+    </div>
+    <div class="evol04">
+        <img src="asset/evol04.png" id="evol4">
+    </div>
+    <div class="evol05">
+        <img src="asset/evol05.png" id="evol5">
+    </div>
+    <div class="evol06">
+        <img src="asset/evol06.png" id="evol6">
+    </div>
+
+</body>
+
+</html>
