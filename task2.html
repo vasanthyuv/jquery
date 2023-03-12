@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>jQuery UI Tabs - Default functionality</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+    <!-- script for tab -->
+    <script>
+        $(function () {
+            $("#tabs").tabs();
+        });
+    </script>
+
+    <!-- script for menu -->
+    <script>
+        $(function () {
+            $("#menu").menu();
+        });
+    </script>
+
+    <!-- script for subscribe button -->
+    <script>
+        $(function () {
+            $("#dialog").dialog({
+                autoOpen: false,
+                show: {
+                    effect: "bounce",
+                    duration: 2000
+                },
+                hide: {
+                    effect: "explode",
+                    duration: 1000
+                }
+            });
+
+            $("#subscribe").on("click", function () {
+                $("#dialog").dialog("open");
+
+            });
+
+            $("#sub").on("click", function () {
+                alert("verified sucessfully..!");
+                $("#dialog").dialog("close");
+
+            });
+        });
+    </script>
+
+    <!--script for download-->
+    <script>
+        $(function () {
+            var progressTimer,
+                progressbar = $(".progressbar"),
+                progressLabel = $(".progress-label"),
+                dialogButtons = [{
+                    text: "Cancel",
+                    click: closeDownload
+                }],
+                dialog = $(".dialog").dialog({
+                    autoOpen: false,
+                    closeOnEscape: false,
+                    resizable: false,
+                    buttons: dialogButtons,
+                    open: function () {
+                        progressTimer = setTimeout(progress, 2000);
+                    },
+                    beforeClose: function () {
+                        download.button("option", {
+                            disabled: false,
+                            label: "Download"
+                        });
+                    }
+                }),
+                download = $(".download")
+                    .button()
+                    .on("click", function () {
+                        $(this).button("option", {
+                            disabled: true,
+                            label: "Downloading..."
+                        });
+                        dialog.dialog("open");
+                    });
+
+            progressbar.progressbar({
+                value: false,
+                change: function () {
+                    progressLabel.text("Downloading: " + progressbar.progressbar("value") + "%");
+                },
+                complete: function () {
+                    progressLabel.text("Downloaded!");
+                    dialog.dialog("option", "buttons", [{
+                        text: "Close",
+                        click: closeDownload
+                    }]);
+                    $(".ui-dialog button").last().trigger("focus");
+                }
+            });
+
+            function progress() {
+                var val = progressbar.progressbar("value") || 0;
+
+                progressbar.progressbar("value", val + Math.floor(Math.random() * 3));
+
+                if (val <= 99) {
+                    progressTimer = setTimeout(progress, 50);
+                }
+            }
+
+            function closeDownload() {
+                clearTimeout(progressTimer);
+                dialog
+                    .dialog("option", "buttons", dialogButtons)
+                    .dialog("close");
+                progressbar.progressbar("value", false);
+                progressLabel
+                    .text("Processing...");
+                download.trigger("focus");
+            }
+        });
+    </script>
+
+    <style>
+        /*css for logo*/
+        #logo {
+            height: 70px;
+            width: 100px;
+            float: left;
+        }
+
+        /*css for tab*/
+        #tabs {
+            margin-top: -250px;
+            width: 70%;
+            position: absolute;
+            margin-left: 250px;
+        }
+
+        /*css for subscribe button*/
+        #subscribe {
+            height: 40px;
+            width: 100px;
+            background-color: blanchedalmond;
+            border-radius: 20px;
+            box-shadow: 2px 2px 15px rgb(156, 156, 156);
+            margin-left: 1060px;
+            margin-top: 15px;
+
+        }
+
+        button:hover {
+            transform: scale(1.1);
+        }
+
+        .ui-menu {
+            width: 150px;
+        }
+
+        #menu {
+            height: 280px;
+        }
+
+        li {
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <!--navbar with logo and subscribe-->
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img id="logo" src="asset/logopng.png" class="d-inline-block align-text-top">
+            </a>
+            <div id="dialog" title="Basic dialog">
+                <div class="col-12">
+                    <label>E-mail<span class="text-danger">*</span></label>
+                    <div class="input-group">
+                        <input type="E-mail" class="form-control" placeholder="Enter Username">
+                    </div>
+                    <br>
+                    <button type="button" class="btn btn-primary" id="sub">Submit</button>
+                </div>
+            </div>
+
+            <button type="button" id="subscribe">Subscribe</button>
+        </div>
+    </nav>
+
+    <!--vertical menu-->
+    <div id="vermenu" style="margin-top: 50px;">
+        <ul id="menu">
+            <h3 style="text-align: center;color: brown;background-color: bisque;">Vertical Menu</h3>
+            <h3 style="text-align: center;color: brown;background-color: bisque;">Anime</h3>
+            <li>
+                <div>tokyo revengers</div>
+            </li>
+            <li>
+                <div>Demon Slayer</div>
+            </li>
+            <li>
+                <div>death note</div>
+
+            </li>
+            <li>
+                <div>Blue Lock</div>
+            </li>
+            <li>
+                <div>jujutsu kaisen</div>
+                <ul>
+                    <li>
+                        <div>Season 1</div>
+                        <ul>
+                            <li>
+                                <div>Exam arc</div>
+                            </li>
+                            <li>
+                                <div>Heavens Arena arc</div>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <!--tabs-->
+    <div id="tabs">
+        <ul>
+            <li><a href="#tabs1">mickey</a></li>
+            <li><a href="#tabs2">zenitsu</a></li>
+            <li><a href="#tabs3">Tanjiro</a></li>
+        </ul>
+        <div id="tabs1">
+            <p><strong> Images</strong></p>
+            <img src="gif/itachi.jpg" style="width: 250px;height: 200px;">
+            <img src="gif/itachi2.jpg" style="width: 250px;height: 200px;">
+            <img src="gif/itachi3.jpg" style="width: 250px;height: 200px;">
+            <div class="dialog" title="Image Download">
+                <div class="progress-label">Processing...</div>
+                <div class="progressbar"></div>
+            </div>
+            <button class="download">Download</button>
+        </div>
+        <div id="tabs2">
+            <p><strong> Images</strong></p>
+            <img src="gif/zoro1.jpg" style="width: 250px;height: 200px;">
+            <img src="gif/zoro2.jpg" style="width: 250px;height: 200px;">
+            <img src="gif/zoro3.jpg" style="width: 250px;height: 200px;">
+            <div class="dialog" title="Image Download">
+                <div class="progress-label">Processing...</div>
+                <div class="progressbar"></div>
+            </div>
+            <button class="download">Download</button>
+        </div>
+
+        <div id="tabs3">
+            <p><strong> Images</strong></p>
+            <img src="gif/tanjiro1.jpg" style="width: 250px;height: 200px;">
+            <img src="gif/tanjiro2.jpg" style="width: 250px;height: 200px;">
+            <img src="gif/tanjiro3.jpg" style="width: 250px;height: 200px;">
+            <div class="dialog" title="Image Download">
+                <div class="progress-label">Processing...</div>
+                <div class="progressbar"></div>
+            </div>
+            <button class="download">Download</button>
+        </div>
+    </div>
+
+</body>
+
+</html>
